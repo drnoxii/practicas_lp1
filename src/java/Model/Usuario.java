@@ -18,6 +18,11 @@ private String password;
 private Rol rol;
 private Persona persona;
 
+    public Usuario() {
+    }
+
+
+
     public Usuario(int id_usuario, String usuario, String password, Rol rol, Persona persona) {
         this.id_usuario = id_usuario;
         this.usuario = usuario;
