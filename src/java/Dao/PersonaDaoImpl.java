@@ -8,13 +8,13 @@ import Interface.IPersona;
 import Model.Persona;
 import Model.Rol;
 import Model.Usuario;
-import Util.ConexionSingleton;
 import java.util.List;
 import java.sql.*;
+import Util.ConexionSingleton;
 
 /**
  *
- * @author spide
+ * @author LAB 2
  */
 public class PersonaDaoImpl implements IPersona {
 
@@ -22,7 +22,7 @@ public class PersonaDaoImpl implements IPersona {
 
     @Override
     public List<Persona> lista() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -32,13 +32,10 @@ public class PersonaDaoImpl implements IPersona {
         ResultSet rs;
         int id_persona = 0;
         int r = 0;
-
         try {
-            cn = ConexionSingleton.getConnection();
-            cn.setAutoCommit(false); 
-
             query = "INSERT INTO persona(nombre,email,direccion,telefono)"
-                    + " VALUES(?,?,?,?)";
+                    + " VALUES (?, ?, ?, ?)";
+            cn = ConexionSingleton.getConnection();
             st = cn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, p.getNombre());
             st.setString(2, p.getEmail());
@@ -49,14 +46,15 @@ public class PersonaDaoImpl implements IPersona {
             if (r != 0) {
                 rs = st.getGeneratedKeys();
                 if (rs.next()) {
+                    //linea que devuelve el id de la persona creada
                     id_persona = rs.getInt(1);
-                    System.out.println("id_recuperado: " + id_persona);
+                    System.out.println("id_recuperado:" + id_persona);
                 }
                 if (id_persona > 0) {
                     u.setRol(Rol.CLIENTE);
                     String hashedPassword = u.HashPassword(u.getPassword());
-                    query = "INSERT INTO usuarios(usuario, password, rol, id_persona)"
-                            + " VALUES(?,?,?,?)";
+                    query = "INSERT INTO usuarios(usuario,password,rol,id_persona)"
+                            + " VALUES (?,?,?,?)";
                     st = cn.prepareStatement(query);
                     st.setString(1, p.getEmail());
                     st.setString(2, hashedPassword);
@@ -68,27 +66,25 @@ public class PersonaDaoImpl implements IPersona {
                 }
             }
 
-            cn.commit(); 
-
         } catch (Exception e) {
-            System.out.println("Error al agregar: " + e.getMessage());
-            if (cn != null) {
-                try {
-                    cn.rollback();
-                } catch (Exception ex) {
-                    System.out.println("Error de rollback: " + ex.getMessage());
-                }
+            System.out.println("error al agregar" + e.getMessage());
+            try {
+                cn.rollback();
+            } catch (Exception ex) {
+                System.out.println("error de rollback" + e.getMessage());
+
             }
+
         } finally {
             if (cn != null) {
                 try {
-                    cn.setAutoCommit(true); // ← restaura autocommit
                 } catch (Exception ex) {
-                    System.out.println("Error restaurando autocommit: " + ex.getMessage());
                 }
+
             }
         }
         return r;
+
     }
 
     @Override

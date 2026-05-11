@@ -5,7 +5,9 @@
 package Test;
 
 import Dao.PersonaDaoImpl;
+import Dao.UsuarioDaoImpl;
 import Interface.IPersona;
+import Interface.IUsuario;
 import Model.Persona;
 import Model.Rol;
 import Model.Usuario;
@@ -17,13 +19,15 @@ import Model.Usuario;
 public class TestPersona {
 
     IPersona dao = new PersonaDaoImpl();
+    IUsuario Udao = new UsuarioDaoImpl();
     
     
     
     public static void main(String[] args) {
        
         TestPersona t = new TestPersona(); 
-        t.insert();
+        //t.insert();
+        t.valid_user();
         
     }
     
@@ -42,8 +46,8 @@ public class TestPersona {
         
         if (result > 0 ){
         System.out.println("Persona y User Creada");
-         System.out.println("Usuario:" + p.getEmail());
-         System.out.println("Rol asignado" + u.getRol());
+        System.out.println("Usuario:" + p.getEmail());
+        System.out.println("Rol asignado" + u.getRol());
         
         }else{
          System.out.println("No se pudo realizar el registro");
@@ -51,4 +55,19 @@ public class TestPersona {
     
     }
     
+    public void valid_user(){
+    
+    Usuario u = Udao.validate("josias@gmail.com", "admin123");
+        if (u!= null && u.getPersona()!= null) {
+            System.out.println("Bievenido "+ u.getPersona() .getNombre());
+            System.out.println("Rol:"+ u.getRol());
+            System.out.println("Usuario:"+ u.getUsuario());
+            System.out.println("User_id:"+ u.getId_usuario());
+            System.out.println("persona_id:"+ u.getPersona().getId_persona());
+            
+        }else{
+            System.out.println("Credenciales incorrectas");
+        
+        }
+    }    
 }
