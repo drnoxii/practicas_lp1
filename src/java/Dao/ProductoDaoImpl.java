@@ -24,15 +24,12 @@ public class ProductoDaoImpl implements IProducto{
         PreparedStatement st;
         ResultSet rs;
         String query = null;
-        
+       
         try {
             query = "SELECT id_producto, nombre, descripcion, precio,stock FROM productos";
             
             lista = new ArrayList <>();
-            if (cn==null || cn.isClosed()) {
-                System.out.println("La conexion es nula o esta cerrada");
-                
-            }
+            
             cn = ConexionSingleton.getConnection();
             st = cn.prepareStatement(query);
             rs = st.executeQuery();
@@ -40,7 +37,7 @@ public class ProductoDaoImpl implements IProducto{
                 pr = new Productos();
                 pr.setId_producto(rs.getInt("id_producto"));
                pr.setNombre(rs.getString("nombre"));
-               pr.setDescripcion(rs.getString("descrpcion"));
+               pr.setDescripcion(rs.getString("descripcion"));
                pr.setPrecio(rs.getDouble("precio"));
                pr.setStock(rs.getInt("stock"));
                lista.add(pr);
@@ -66,7 +63,11 @@ public class ProductoDaoImpl implements IProducto{
     }
     @Override
     public boolean insert(Productos p) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       
+        
+        
+        
+        
     }
 
     @Override
