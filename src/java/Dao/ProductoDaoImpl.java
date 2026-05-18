@@ -64,15 +64,89 @@ public class ProductoDaoImpl implements IProducto{
     @Override
     public boolean insert(Productos p) {
        
+        boolean flag = false;
         
+        PreparedStatement st;
+        String query;
         
-        
-        
+        try {
+        query = "INSERT INTO productos (nombre, descripcion, precio, stock, imagen)"
+    + "VALUES(?,?,?,?,?)";
+        cn = ConexionSingleton.getConnection();
+        st = cn.prepareStatement(query);
+        st.setString(1, p.getNombre());
+        st.setString(2, p.getDescripcion());
+        st.setDouble(3, p.getPrecio());
+        st.setInt(4, p.getStock());
+        st.setString(5, p.getImagen());
+        st.executeUpdate();
+        flag = true;
+            
+        } catch(Exception e){
+            System.out.println("Error al validar insertar:"+ e.getMessage());
+            try {
+                cn.rollback();
+            } catch (Exception ex) {
+               
+            }
+            System.out.println("No se pudo insertar el producto");
+        }finally {
+            if (cn!=null) {
+                try {
+                } catch (Exception ex) {
+                    
+                }
+            }
+        }return flag;
     }
+
+        
+        
+        
+    
 
     @Override
     public boolean update(Productos p) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       
+       boolean flag = false;
+        
+        PreparedStatement st;
+        String query;
+        
+        try {
+        query = "UD INTO productos (nombre, descripcion, precio, stock, imagen)"
+    + "VALUES(?,?,?,?,?)";
+        cn = ConexionSingleton.getConnection();
+        st = cn.prepareStatement(query);
+        st.setString(1, p.getNombre());
+        st.setString(2, p.getDescripcion());
+        st.setDouble(3, p.getPrecio());
+        st.setInt(4, p.getStock());
+        st.setString(5, p.getImagen());
+        st.executeUpdate();
+        flag = true;
+            
+        } catch(Exception e){
+            System.out.println("Error al validar insertar:"+ e.getMessage());
+            try {
+                cn.rollback();
+            } catch (Exception ex) {
+               
+            }
+            System.out.println("No se pudo insertar el producto");
+        }finally {
+            if (cn!=null) {
+                try {
+                } catch (Exception ex) {
+                    
+                }
+            }
+        }return flag;
+    } 
+        
+        
+        
+        
     }
 
     @Override

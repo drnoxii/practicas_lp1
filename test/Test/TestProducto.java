@@ -23,6 +23,7 @@ public class TestProducto {
     
     public static void main(String[] args) {
       
+        insertar();
         listar();
         
         
@@ -43,5 +44,22 @@ public class TestProducto {
     
     
     }
+    public static void insertar(){
+    
+    Productos p = new Productos();
+    p.setNombre("Mouse Logitech");
+    p.setDescripcion("RGB ON DPI 2400");
+    p.setPrecio(230.99);
+    p.setStock(17);
+    p.setImagen("/resources/img/teclado.jpg");
+    boolean result = dao.insert(p);
+        if (result) {
+            System.out.println("Producto insertado");
+        }else {
+        
+            System.out.println("Error al insertar");
+        }
+    }
+    
     
 }
