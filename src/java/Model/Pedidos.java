@@ -4,10 +4,83 @@
  */
 package Model;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  *
  * @author spide
  */
 public class Pedidos {
+    
+    private int id_pedido;
+    private Persona persona;
+    private Double total;
+    private EstadoPedido estadopedido;
+    private Timestamp fecha;
+    private List<Carrito> detallePedido;
+
+    public Pedidos() {
+    }
+
+    public Pedidos(int id_pedido, Persona persona, Double total, EstadoPedido estadopedido, Timestamp fecha, List<Carrito> detallePedido) {
+        this.id_pedido = id_pedido;
+        this.persona = persona;
+        this.total = total;
+        this.estadopedido = estadopedido;
+        this.fecha = fecha;
+        this.detallePedido = detallePedido;
+    }
+
+    public int getId_pedido() {
+        return id_pedido;
+    }
+
+    public void setId_pedido(int id_pedido) {
+        this.id_pedido = id_pedido;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public EstadoPedido getEstadopedido() {
+        return estadopedido;
+    }
+
+    public void setEstadopedido(EstadoPedido estadopedido) {
+        this.estadopedido = estadopedido;
+    }
+
+    public Timestamp getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
+    }
+
+    public List<Carrito> getDetallePedido() {
+        return detallePedido;
+    }
+
+    public void setDetallePedido(List<Carrito> detallePedido) {
+        this.detallePedido = detallePedido;
+    }
+    
+    
+    
     
 }

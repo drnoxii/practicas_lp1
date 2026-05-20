@@ -114,8 +114,8 @@ public class ProductoDaoImpl implements IProducto{
         String query = null;
         
         try {
-        query = "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, imagen= ?)"
-    + "WHERE id_productos = ?";
+        query = "UPDATE productos SET nombre=?, descripcion= ?, precio =?, stock=?, imagen=?)"
+    + "WHERE id_productos =?";
         cn = ConexionSingleton.getConnection();
         st = cn.prepareStatement(query);
         st.setString(1, p.getNombre());
@@ -238,7 +238,7 @@ public class ProductoDaoImpl implements IProducto{
         String query = null;
         
         try {
-        query = "UPDATE productos SETstock = ?"
+        query = "UPDATE productos SET stock = ?"
     + "WHERE id_productos = ?";
         cn = ConexionSingleton.getConnection();
         st = cn.prepareStatement(query);

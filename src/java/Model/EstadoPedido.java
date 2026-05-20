@@ -10,4 +10,10 @@ package Model;
  */
 public enum EstadoPedido {
     
+    PENDIENTE,
+    PROCESADO,
+    ENVIADO,
+    ENTREGADO,
+    CANCELADO,
+    
 }
