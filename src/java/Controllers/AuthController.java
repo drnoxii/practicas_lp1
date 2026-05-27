@@ -107,6 +107,7 @@ public class AuthController extends HttpServlet {
                 jsonResponse.addProperty("message", "Usuario o Contraseña incorrecta");
                 }
                 out.print(jsonResponse.toString());
+                
                 } else if(action.equals("register")){
                 Persona p = new Persona();
                 Usuario u = new Usuario();
@@ -123,7 +124,15 @@ public class AuthController extends HttpServlet {
                 jsonResponse.addProperty("message", resultado !=0 ? "Registro Correcto" : "Error de Registro");
                 out.print(jsonResponse.toString());
                 
+                }else if(action.equals("Salir")){
+                HttpSession session = request.getSession(false);
+                if(session !=null ) session.invalidate();
+                
+                jsonResponse.addProperty("sucess", true);
+                jsonResponse.addProperty("message", "Sesion Cerrada" );
+                out.print(jsonResponse.toString());
                 }
+            
         } catch (Exception e) {
             response.setStatus(500);
             jsonResponse.addProperty("success", false);
