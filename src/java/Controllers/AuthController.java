@@ -8,6 +8,7 @@ import Dao.PersonaDaoImpl;
 import Dao.UsuarioDaoImpl;
 import Interface.IPersona;
 import Interface.IUsuario;
+import Model.Persona;
 import Model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -106,6 +107,22 @@ public class AuthController extends HttpServlet {
                 jsonResponse.addProperty("message", "Usuario o Contraseña incorrecta");
                 }
                 out.print(jsonResponse.toString());
+                } else if(action.equals("register")){
+                Persona p = new Persona();
+                Usuario u = new Usuario();
+                
+                p.setNombre(request.getParameter("nombre"));
+                p.setEmail(request.getParameter("email"));
+                p.setDireccion(request.getParameter("direccion"));
+                p.setTelefono(request.getParameter("telefono"));
+                u.setPassword(request.getParameter("password"));
+                
+                int resultado = pDao.insert(p, u);
+                
+                jsonResponse.addProperty("sucess", resultado !=0);
+                jsonResponse.addProperty("message", resultado !=0 ? "Registro Correcto" : "Error de Registro");
+                out.print(jsonResponse.toString());
+                
                 }
         } catch (Exception e) {
             response.setStatus(500);
