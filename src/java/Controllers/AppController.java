@@ -152,9 +152,27 @@ public class AppController extends HttpServlet {
                         pedido.setTotal(totalpagar);
                         pedido.setEstadopedido(EstadoPedido.PROCESADO);
                         pedido.setDetallePedido(listCarrito);
-                        
-                        int idGenerado = IDao.generarPedido(pedido)
-                        
+
+                        int idGenerado = IDao.generarPedido(pedido);
+                        if (idGenerado > 0) {
+                            for (Carrito c : listCarrito) {
+                                Productos prodBD = pDao.SearchbyId(c.getIdProducto());
+                                int nuevoStock = prodBD.getStock() - c.getCantidad();
+                                pDao.updateStock(c.getIdProducto(), nuevoStock);
+
+                            }
+                            listCarrito.clear();
+                            session.setAttribute("Carrito", listCarrito);
+                            session.setAttribute("toal", 0.0);
+                            jsonResponse.addProperty("sucess", true);
+                            jsonResponse.addProperty("message", "Compra Exitosa!");
+
+                        } else {
+                            jsonResponse.addProperty("sucess", false);
+                            jsonResponse.addProperty("message", "Error al Procesar el pedido");
+                            
+                        }
+                        out.print(jsonResponse.toString());
                         break;
                     default:
                         jsonResponse.addProperty("success", false);
